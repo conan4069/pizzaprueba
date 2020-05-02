@@ -20,8 +20,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-// import InboxIcon from '@material-ui/icons/Inbox';
-// import DraftsIcon from '@material-ui/icons/Drafts'
+
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -113,18 +113,12 @@ export default function Home() {
   // useEffect(() => { 
   //   axiosInstance.get('pizza')
   //     .then(response => {
-  //       // let text = JSON.stringify(response.data.success.data)
-  //       // console.log('response ->', text);
-  //       // console.log('response ->', response.data.success.data);
+  //       // // console.log('response ->', response.data.success.data);
   //       // setPizzas(response.data.success.data)
-        
-  //       setPizzas(offline)
-  //       console.log('El offline ->', offline);
   //     })
   // }, [])
   
   const handleClickOpen = () => {
-    console.log('hello');
     setOpenCar(true);
   };
 
@@ -151,7 +145,6 @@ export default function Home() {
                 <h5>{pizza.ingredients}</h5>
                 <h5>{pizza.price} $</h5>
                 <button onClick={() => handleClickOpen()}>Add to Car</button>
-
               </div>
             </div>
           </div>
@@ -181,18 +174,38 @@ export default function Home() {
           </DialogTitle>
           <DialogContent>
             <div>
+              <div className="headerArea">
+                <div className="qtyArea">Qty.</div>
+                <div className="infoArea">
+                  <div className="name">
+                    Pizza
+                  </div>
+                  <div className="price">Total</div>
+                </div>
+              </div>
               <List>
                 {/* {pizzas.map((pizza, index) => ( */}
                 {offline.map((pizza, index) => (
                   <ListItem 
-                    // button 
-                    // component={Link} 
                     key={index}>
                     {/* <ListItemIcon>{<Icon className={pizza.icon} />}</ListItemIcon> */}
-                    <input type="text"></input>
-                    <ListItemText primary={pizza.name} />
-                    <button>-</button>
-                    <button>+</button>
+                    <div className="qtyArea">
+                      <TextField 
+                        disabled id={index+'.'+pizza.name} 
+                        defaultValue="0" 
+                        // label="Quantity" 
+                      />
+                    </div>
+                    <div className="infoArea">
+                      <div className="name">
+                        <ListItemText 
+                          primary={pizza.name} 
+                        />
+                      </div>
+                      <div className="price">
+                        <span>{pizza.price}</span>
+                      </div>
+                    </div>
                   </ListItem>
                 ))}
               </List>
@@ -202,14 +215,14 @@ export default function Home() {
               Google, even when no apps are running.
             </DialogContentText> */}
           </DialogContent>
-          <DialogActions>
+          {/* <DialogActions>
             <Button onClick={handleClose} color="primary">
               Back
             </Button>
             <Button onClick={handleClose} color="primary" autoFocus>
               Send
             </Button>
-          </DialogActions>
+          </DialogActions> */}
         </Dialog>
       </div>
 
