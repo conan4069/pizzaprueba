@@ -29,8 +29,7 @@ import {
 const menuItemsLateral = [
   { name: 'Home', route: '/', icon: 'fa fa-home' },
   { name: 'Dashboard', route: '/dashboard', icon: 'fa fa-columns' },
-  { name: 'Profile', route: '/profile', icon: 'fa fa-user-alt' },
-  { name: 'Login', route: '/login', icon: 'fa fa-user-alt' },
+  { name: 'Profile', route: '/profile', icon: 'fa fa-user-alt' }
 ]
 
 export default function PersistentDrawerRight() {
@@ -69,6 +68,7 @@ export default function PersistentDrawerRight() {
               Yummy Pizza
             </Typography>
             <RegisterModal></RegisterModal>
+            <Login></Login>
           </Toolbar>
         </AppBar>
         <main
@@ -87,9 +87,6 @@ export default function PersistentDrawerRight() {
               </Route>
               <Route path="/dashboard">
                 <Dashboard />
-              </Route>
-              <Route path="/login">
-                <Login />
               </Route>
             </Switch>
           </div>

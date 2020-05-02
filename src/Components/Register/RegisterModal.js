@@ -33,7 +33,6 @@ export default (props) => {
   const createUser = () => {
     axiosInstance.post('signup',user)
     .then((response) => {
-      console.log("response register", response.data);
       setOpen(false)
     })
   } 
