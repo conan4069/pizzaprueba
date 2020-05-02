@@ -193,22 +193,22 @@ export default function Home() {
               <ul>
                 <li>
                   <a href="#">
-                    <Icon className="fa fa-facebook-square" />
+                    <Icon className="fab fa-facebook" />
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <Icon className="fa fa-twitter-square" />
+                    <Icon className="fab fa-twitter-square" />
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <Icon className="fa fa-twitter-square" />
+                    <Icon className="fab fa-instagram-square" />
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <Icon className="fa fa-snapchat-square" />
+                    <Icon className="fab fa-linkedin" />
                   </a>
                 </li>
               </ul>

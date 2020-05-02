@@ -482,7 +482,19 @@ main {
           .icons
             ul > li
               {
-                display: inline-block;    
+                display: inline-block;
+                color: white;
+              }
+.home
+  .sectionFooter
+    .internalContainer 
+      .row
+        .aboutUs
+          .icons
+            ul > li
+              a
+              {
+                color: inherit;
               }
 
 /* Car List  */
