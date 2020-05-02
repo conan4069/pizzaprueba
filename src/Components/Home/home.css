@@ -218,7 +218,7 @@ main {
       width: 100%;
       opacity: 0;
       transition: .5s ease;
-      background-color: #77a376;
+      background-color: #549B30;
     }
 
 .home
@@ -240,7 +240,7 @@ main {
 /* Section Footer */
 .home
     .sectionFooter {
-      background: #77a376;
+      background: #549B30;
       padding: 1.5rem 0rem !important;
       display: block;
       margin-bottom: 3rem;
