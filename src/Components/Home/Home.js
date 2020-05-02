@@ -110,18 +110,18 @@ export default function Home() {
       "updated_at": "2020-05-02T07:42:09.000000Z"
     }
   ]
-  // useEffect(() => { 
-  //   axiosInstance.get('pizza')
-  //     .then(response => {
-  //       // let text = JSON.stringify(response.data.success.data)
-  //       // console.log('response ->', text);
-  //       // console.log('response ->', response.data.success.data);
-  //       // setPizzas(response.data.success.data)
+  useEffect(() => { 
+    axiosInstance.get('pizza')
+      .then(response => {
+        // let text = JSON.stringify(response.data.success.data)
+        // console.log('response ->', text);
+        // console.log('response ->', response.data.success.data);
+        // setPizzas(response.data.success.data)
         
-  //       setPizzas(offline)
-  //       console.log('El offline ->', offline);
-  //     })
-  // }, [])
+        setPizzas(offline)
+        console.log('El offline ->', offline);
+      })
+  }, [])
   
   const handleClickOpen = () => {
     console.log('hello');

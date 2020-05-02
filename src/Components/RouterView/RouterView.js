@@ -34,7 +34,9 @@ const menuItemsLateral = [
 
 export default function PersistentDrawerRight() {
   const classes = useStyles();
+  const getToken = localStorage.getItem('token')
   const [open, setOpen] = React.useState(false);
+  const [token, setToken] = React.useState(getToken != undefined ? true : false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -67,8 +69,12 @@ export default function PersistentDrawerRight() {
             <Typography variant="h6" noWrap className={classes.title}>
               Yummy Pizza
             </Typography>
-            <RegisterModal></RegisterModal>
-            <Login></Login>
+            {
+              token ? null : [
+                <RegisterModal></RegisterModal>,
+                <Login></Login>
+              ]
+            }
           </Toolbar>
         </AppBar>
         <main
