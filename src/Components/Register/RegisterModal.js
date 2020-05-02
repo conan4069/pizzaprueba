@@ -28,7 +28,7 @@ export default (props) => {
     password:'',
     password_confirmation:'',
     address:'',
-    phone:''
+    cellphone:''
   })
 
   const createUser = () => {
@@ -74,8 +74,8 @@ export default (props) => {
                 type="email"
               />
               <TextField
-                value={user.phone}
-                onChange={(evt)=> setUser({...user, phone:evt.target.value})}
+                value={user.cellphone}
+                onChange={(evt)=> setUser({...user, cellphone:evt.target.value})}
                 id="standard-phone"
                 label="Phone"
                 type="number"
