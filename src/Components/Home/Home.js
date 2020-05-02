@@ -150,8 +150,12 @@ export default function Home() {
                 <h2>{pizza.name}</h2>
                 <h5>{pizza.ingredients}</h5>
                 <h5>{pizza.price} $</h5>
-                <button onClick={() => handleClickOpen()}>Add to Car</button>
-
+                <span className="quantity"> 
+                  <input type="number"/>
+                  <button>+</button>
+                  <button>-</button>
+                </span>
+                <button className="add" onClick={() => handleClickOpen()}>Add to Car</button>
               </div>
             </div>
           </div>
