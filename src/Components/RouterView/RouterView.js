@@ -59,18 +59,18 @@ export default function PersistentDrawerRight() {
           })}
         >
           <Toolbar>
-            <Typography variant="h6" noWrap className={classes.title}>
-              Yummy Pizza
-            </Typography>
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              edge="end"
+              edge="start"
               onClick={handleDrawerOpen}
               className={clsx(open && classes.hide)}
             >
               <Icon className="fa fa-bars" />
             </IconButton>
+            <Typography variant="h6" noWrap className={classes.title}>
+              Yummy Pizza
+            </Typography>
           </Toolbar>
         </AppBar>
         <main
@@ -102,7 +102,7 @@ export default function PersistentDrawerRight() {
         <Drawer
           className={classes.drawer}
           variant="persistent"
-          anchor="right"
+          anchor="left"
           open={open}
           classes={{
             paper: classes.drawerPaper,
@@ -158,7 +158,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginRight: drawerWidth,
+    marginLeft: drawerWidth,
   },
   title: {
     flexGrow: 1,
@@ -167,7 +167,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
   },
   drawer: {
-    width: drawerWidth,
+    // width: -drawerWidth,
     flexShrink: 0,
   },
   drawerPaper: {
@@ -188,13 +188,12 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginRight: -drawerWidth,
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginRight: 0,
+    marginLeft: drawerWidth,
   },
 }));
