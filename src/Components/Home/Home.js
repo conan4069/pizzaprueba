@@ -137,8 +137,15 @@ export default function Home() {
     let id = object.id
     axiosInstance.get('order/'+id)
       .then(response => {
-
-        console.log('Hello', response);
+        if (localStorage.getItem('token') === undefined || localStorage.getItem('token') === null) {
+          var tokenUser = response.data[0].token
+          localStorage.setItem('token', tokenUser)
+          axiosInstance.defaults.headers['Authorization'] = `Bearer ${tokenUser}`
+          console.log('Hello', response);
+          console.log('El Token es', tokenUser);
+        }
+        console.log('klasdkasd', localStorage.getItem('token'));
+        
       })
     
   } 
@@ -163,6 +170,12 @@ export default function Home() {
                 <h5>{pizza.price} $</h5>
                 <button onClick={() => addPizza(pizza)}>Add to Car</button>
                 {/* <button onClick={() => handleClickOpen()}>Add to Car</button> */}
+                <span className="quantity"> 
+                  <input type="number"/>
+                  <button>+</button>
+                  <button>-</button>
+                </span>
+                <button className="add" onClick={() => handleClickOpen()}>Add to Car</button>
               </div>
             </div>
           </div>
