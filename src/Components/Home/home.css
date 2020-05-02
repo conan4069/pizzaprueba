@@ -3,6 +3,7 @@ main {
 }
 * {
   font-family: 'Montserrat', sans-serif;
+  /*outline: none;*/
 }
 
 .home {
@@ -170,18 +171,25 @@ main {
 .home
   .ourMenu
     .items {
-      /* border: 1px solid blue; */
+      border-top: 2px solid red; 
+      border-bottom: 2px solid red; 
+      max-width: 1200px;
       display: flex;
       flex-wrap: wrap;
+      margin: auto;
+      width: 100vw;
+      justify-content: center;
     }
 
 .home
   .ourMenu
     .items > div {
-      /* border: 1px solid yellow; */
-      width: 25%;
+       /*border: 1px solid yellow; */
+      /*width: 25%;*/
+      flex-basis: 299px;
+
       text-align: center;
-      line-height: 14px;
+      /*line-height: 14px;*/
       font-size: 18px;
       position: relative;
       min-height: 180px;
@@ -190,6 +198,12 @@ main {
       padding-right: 15px;
       padding-left: 15px;
       color: lightgray;
+
+      /*Container image*/
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
 .home
@@ -202,8 +216,9 @@ main {
   .ourMenu
     .items > div > img {
       display: block;
-      width: 100%;
-      height: auto;
+      /*width: 100%;*/
+      /*height: 100%;*/
+      /*margin: 0;*/
     }
 
 .home
@@ -220,11 +235,113 @@ main {
       transition: .5s ease;
       background-color: #549B30;
     }
+/*AQUI*/
+.home
+  .ourMenu
+    .items > div > .overlay
+      .text {
+        border: 1px solid;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        height: 100%
+      }
+
+.home
+  .ourMenu
+    .items > div > .overlay
+      .text 
+        h2  {
+          line-height: 27px;
+          margin: 1px 0;
+          height: 56px
+        }
+
+.home
+  .ourMenu
+    .items > div > .overlay
+      .text 
+        h5  {
+          padding: 0;
+          margin: 0;
+          text-transform: capitalize;
+        }
+
+.home
+  .ourMenu
+    .items > div > .overlay
+      .text 
+        button.add  {
+          background: linear-gradient(217deg, green, #D4D4D4, red 100.71%);
+          color: white;
+          font-weight: bold;
+          text-shadow: 0 0 2px black;
+          border: none;
+          outline: none;
+          padding: 0.6em 1.2em;
+          border-radius: 4px;
+          box-shadow: 
+              0 1px 3px rgba(0,0,0,0.9),
+              0 1px 2px rgba(0,0,0,0.4);
+          text-transform: uppercase;
+          cursor: pointer;
+          position: relative;
+          width: 98%;
+          margin: 0 auto;
+        }
+
+.home
+  .ourMenu
+    .items > div > .overlay
+      .text 
+        span.quantity  {
+          display: flex;
+          padding: 0 5px
+        }
+.home
+  .ourMenu
+    .items > div > .overlay
+      .text 
+        span.quantity 
+          button{
+            background-color: white;
+            flex: 1;
+            color: red;
+            text-shadow: 0 0 2px black;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            outline: none
+          }
+.home
+  .ourMenu
+    .items > div > .overlay
+      .text 
+        span.quantity
+          input { 
+            width: 70%;
+            text-align: center;
+            border: 0;
+            border-radius: 4px
+          }
+
+.home
+  .ourMenu
+    .items > div > .overlay
+      .text 
+        span.quantity
+          input[type=number]::-webkit-inner-spin-button, 
+          input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+          }
+
+
 
 .home
   .ourMenu
     .items > div > .text {
-      /* border: 1px solid red; */
       color: white;
       font-size: 20px;
       position: absolute;
