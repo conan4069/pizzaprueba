@@ -29,6 +29,7 @@ export default (props) => {
   const login = () => {
     axiosInstance.post('auth/login',user)
     .then((response) => {
+      props.donelog()
       setOpen(false)
       localStorage.setItem('token',response.data.token)
     })

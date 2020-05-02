@@ -36,7 +36,20 @@ export default function PersistentDrawerRight() {
   const classes = useStyles();
   const getToken = localStorage.getItem('token')
   const [open, setOpen] = React.useState(false);
-  const [token, setToken] = React.useState(getToken != undefined ? true : false);
+  const [token, setToken] = React.useState(getToken !== null ? true : false);
+
+  // onClick={handleModalOpen}
+  const logout = <IconButton
+      color="inherit"
+      onClick={() => {
+        localStorage.removeItem('token')
+        setToken(false)
+      }}
+      aria-label="open drawer"
+    >
+      <Icon style={{fontWeight:700}}>reply</Icon>
+    </IconButton>
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -45,6 +58,10 @@ export default function PersistentDrawerRight() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const loginToken = () => {
+    setToken(true)    
+  }
 
   return (
     <Router>
@@ -70,9 +87,9 @@ export default function PersistentDrawerRight() {
               Yummy Pizza
             </Typography>
             {
-              token ? null : [
-                <RegisterModal></RegisterModal>,
-                <Login></Login>
+              token ? logout : [
+                <RegisterModal key="register"></RegisterModal>,
+                <Login key="login" donelog={loginToken}></Login>
               ]
             }
           </Toolbar>
