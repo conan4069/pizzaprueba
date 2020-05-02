@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -13,11 +13,10 @@ import Icon from '@material-ui/core/Icon';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import RegisterModal from '../Register/RegisterModal'
 
 import Home from '../Home/Home'
 import Login from '../Login/Login'
-import Register from '../Register/Register'
 import Dashboard from '../Dashboard/Dashboard'
 
 import {
@@ -32,12 +31,10 @@ const menuItemsLateral = [
   { name: 'Dashboard', route: '/dashboard', icon: 'fa fa-columns' },
   { name: 'Profile', route: '/profile', icon: 'fa fa-user-alt' },
   { name: 'Login', route: '/login', icon: 'fa fa-user-alt' },
-  { name: 'Register', route: '/register', icon: 'fa fa-user-alt' },
 ]
 
 export default function PersistentDrawerRight() {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -71,6 +68,7 @@ export default function PersistentDrawerRight() {
             <Typography variant="h6" noWrap className={classes.title}>
               Yummy Pizza
             </Typography>
+            <RegisterModal></RegisterModal>
           </Toolbar>
         </AppBar>
         <main
@@ -93,9 +91,6 @@ export default function PersistentDrawerRight() {
               <Route path="/login">
                 <Login />
               </Route>
-              <Route path="/register">
-                <Register />
-              </Route>
             </Switch>
           </div>
         </main>
@@ -109,11 +104,15 @@ export default function PersistentDrawerRight() {
           }}
         >
           <div className={classes.drawerHeader}>
+            <span style={{
+                color:'#319a2f'
+              }} 
+              className={classes.title}>
+              YP
+            </span>
             <IconButton onClick={handleDrawerClose}>
               {
-                theme.direction === 'rtl' ?
-                  <Icon className="fa fa-chevron-left" color="primary" /> :
-                  <Icon className="fa fa-chevron-right" />
+                <Icon style={{color:'#319a2f'}} className="fa fa-chevron-left"/>
               }
             </IconButton>
           </div>
@@ -147,6 +146,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   appBar: {
+    backgroundColor:'#319a2f',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -162,6 +162,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    fontFamily:'Pacifico , cursive',
+    fontWeight:'700',
+    fontSize:'30px'
   },
   hide: {
     display: 'none',
@@ -179,7 +182,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
   },
   content: {
     flexGrow: 1,
