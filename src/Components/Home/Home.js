@@ -14,8 +14,25 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Icon from '@material-ui/core/Icon';
 
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+// import InboxIcon from '@material-ui/icons/Inbox';
+// import DraftsIcon from '@material-ui/icons/Drafts'
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
 
 export default function Home() {
+  const classes = useStyles();
   // States
   const [pizzas, setPizzas] = useState([]);
   const [openCar, setOpenCar] = useState(false);
@@ -85,17 +102,33 @@ export default function Home() {
             {"Your Order !"}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
+            <div>
+              <List>
+                {pizzas.map((pizza, index) => (
+                  <ListItem 
+                    // button 
+                    // component={Link} 
+                    key={index}>
+                    {/* <ListItemIcon>{<Icon className={pizza.icon} />}</ListItemIcon> */}
+                    <input type="text"></input>
+                    <ListItemText primary={pizza.name} />
+                    <button>-</button>
+                    <button>+</button>
+                  </ListItem>
+                ))}
+              </List>
+            </div>
+            {/* <DialogContentText id="alert-dialog-description">
               Let Google help apps determine location. This means sending anonymous location data to
               Google, even when no apps are running.
-            </DialogContentText>
+            </DialogContentText> */}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
-              Disagree
+              Back
             </Button>
             <Button onClick={handleClose} color="primary" autoFocus>
-              Agree
+              Send
             </Button>
           </DialogActions>
         </Dialog>
