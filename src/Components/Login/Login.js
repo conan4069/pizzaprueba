@@ -27,7 +27,7 @@ export default (props) => {
   })
 
   const login = () => {
-    axiosInstance.post('login',user)
+    axiosInstance.post('auth/login',user)
     .then((response) => {
       setOpen(false)
     })
@@ -40,7 +40,7 @@ export default (props) => {
         aria-label="open drawer"
         onClick={handleModalOpen}
       >
-        <Icon className="fa fa-user-alt`" />
+        <Icon style={{fontWeight:700}}>input</Icon>
       </IconButton>
       <Modal
         open={open}

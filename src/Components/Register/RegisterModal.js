@@ -26,12 +26,13 @@ export default (props) => {
     'name':'',
     'email':'',
     password:'',
+    password_confirmation:'',
     address:'',
     phone:''
   })
 
   const createUser = () => {
-    axiosInstance.post('signup',user)
+    axiosInstance.post('auth/signup',user)
     .then((response) => {
       setOpen(false)
     })
@@ -73,13 +74,6 @@ export default (props) => {
                 type="email"
               />
               <TextField
-                value={user.password}
-                onChange={(evt)=> setUser({...user, password:evt.target.value})}
-                id="standard-pass"
-                label="Password"
-                type="password"
-              />
-              <TextField
                 value={user.phone}
                 onChange={(evt)=> setUser({...user, phone:evt.target.value})}
                 id="standard-phone"
@@ -92,6 +86,20 @@ export default (props) => {
                 id="standard-address"
                 label="Address"
                 type="text"
+              />
+              <TextField
+                value={user.password}
+                onChange={(evt)=> setUser({...user, password:evt.target.value})}
+                id="standard-pass"
+                label="Password"
+                type="password"
+              />
+              <TextField
+                value={user.password_confirmation}
+                onChange={(evt)=> setUser({...user, password_confirmation:evt.target.value})}
+                id="standard-pass-2"
+                label="Password confirmation"
+                type="password"
               />
             </form>
           </CardContent>
