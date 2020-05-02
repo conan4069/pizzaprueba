@@ -5,11 +5,11 @@ import '../../App.css';
 import './home.css';
 import { axiosInstance } from '../../axiosInstance.js'
 
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
+// import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Icon from '@material-ui/core/Icon';
@@ -17,9 +17,9 @@ import Icon from '@material-ui/core/Icon';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
+// import Divider from '@material-ui/core/Divider';
 
 import TextField from '@material-ui/core/TextField';
 
@@ -110,13 +110,20 @@ export default function Home() {
       "updated_at": "2020-05-02T07:42:09.000000Z"
     }
   ]
-  // useEffect(() => { 
-  //   axiosInstance.get('pizza')
-  //     .then(response => {
-  //       // // console.log('response ->', response.data.success.data);
-  //       // setPizzas(response.data.success.data)
-  //     })
-  // }, [])
+  useEffect(() => { 
+    axiosInstance.get('pizza')
+      .then(response => {
+        // // console.log('response ->', response.data.success.data);
+        // setPizzas(response.data.success.data)
+      })
+
+    // axiosInstance.get('order')
+    //   .then(response => {
+    //     console.log('response ->', response);
+    //     // setPizzas(response.data.success.data)
+    //   })
+
+  }, [])
   
   const handleClickOpen = () => {
     setOpenCar(true);
@@ -125,6 +132,16 @@ export default function Home() {
   const handleClose = () => {
     setOpenCar(false);
   };
+
+  function addPizza (object) {
+    let id = object.id
+    axiosInstance.get('order/'+id)
+      .then(response => {
+
+        console.log('Hello', response);
+      })
+    
+  } 
 
   const ourMenu =
     <section className="ourMenu">
@@ -144,7 +161,8 @@ export default function Home() {
                 <h2>{pizza.name}</h2>
                 <h5>{pizza.ingredients}</h5>
                 <h5>{pizza.price} $</h5>
-                <button onClick={() => handleClickOpen()}>Add to Car</button>
+                <button onClick={() => addPizza(pizza)}>Add to Car</button>
+                {/* <button onClick={() => handleClickOpen()}>Add to Car</button> */}
               </div>
             </div>
           </div>
@@ -154,13 +172,6 @@ export default function Home() {
   
   const carDialog = 
       <div>
-        {/* <Button 
-          variant="outlined" 
-          color="primary" 
-          onClick={handleClickOpen}
-        >
-          Open alert dialog
-        </Button> */}
         <Dialog
           open={openCar}
           onClose={handleClose}
@@ -188,7 +199,6 @@ export default function Home() {
                 {offline.map((pizza, index) => (
                   <ListItem 
                     key={index}>
-                    {/* <ListItemIcon>{<Icon className={pizza.icon} />}</ListItemIcon> */}
                     <div className="qtyArea">
                       <TextField 
                         disabled id={index+'.'+pizza.name} 
@@ -210,19 +220,7 @@ export default function Home() {
                 ))}
               </List>
             </div>
-            {/* <DialogContentText id="alert-dialog-description">
-              Let Google help apps determine location. This means sending anonymous location data to
-              Google, even when no apps are running.
-            </DialogContentText> */}
           </DialogContent>
-          {/* <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Back
-            </Button>
-            <Button onClick={handleClose} color="primary" autoFocus>
-              Send
-            </Button>
-          </DialogActions> */}
         </Dialog>
       </div>
 
