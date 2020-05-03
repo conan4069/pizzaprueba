@@ -288,7 +288,18 @@ main {
           position: relative;
           width: 98%;
           margin: 0 auto;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
+.home
+  .ourMenu
+    .items > div > .overlay
+      .text 
+        button.add 
+          span[class*="-icons"]{
+            margin: auto 5px
+          }
 
 .home
   .ourMenu

@@ -121,7 +121,10 @@ export default function Home(props) {
                   <button>-</button>
                 </span>
                 */}
-                <button className="add" onClick={() => handleClickOpen()}>Add to Car</button>
+                <button className="add" onClick={() => handleClickOpen()}>
+                  <Icon className="fas fa-cart-plus" />
+                  Add to Car
+                </button>
               </div>
             </div>
           </div>
