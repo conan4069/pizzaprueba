@@ -40,7 +40,8 @@ export default function PersistentDrawerRight() {
   const [open, setOpen] = React.useState(false);
   const [token, setToken] = React.useState(getToken !== null ? true : false);
   const [menuItemsLateral,setMenu] = React.useState(getToken !== null ? fullMenu : initialMenu);
-  const [currency,setCurrency] = React.useState(cur !== null ? cur : 'USD')
+  const [currency, setCurrency] = React.useState(cur !== null ? cur : 'USD')
+  const [shopingCar, openShopCar] = React.useState(false)
 
   // onClick={handleModalOpen}
   const logout = <IconButton
@@ -69,6 +70,22 @@ export default function PersistentDrawerRight() {
             'fa fa-euro-sign'}`
         }></Icon>
       </IconButton>
+
+  const shopingCarBtn = 
+    <IconButton
+      color='inherit'
+      onClick={() => openShopingCar()}
+    >
+      <Icon style={{ fontWeight: 700 }} className="fa fa-shopping-cart"></Icon>
+    </IconButton>
+
+  const openShopingCar = () => {
+    openShopCar(true)
+  } 
+
+  const closeShopingCar = () => {
+    openShopCar(false)
+  } 
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -106,6 +123,7 @@ export default function PersistentDrawerRight() {
             <Typography variant="h6" noWrap className={classes.title}>
               Yummy Pizza
             </Typography>
+            {shopingCarBtn}
             {currencyBtn}
             {
               token ? logout : [
@@ -124,7 +142,13 @@ export default function PersistentDrawerRight() {
           <div>
             <Switch>
               <Route exact path="/">
-                <Home key="home" haveToken={loginToken} currency={currency} />
+                <Home 
+                  key="home" 
+                  haveToken={loginToken} 
+                  currency={currency} 
+                  openSC={shopingCar}
+                  closeSC={closeShopingCar}
+                />
               </Route>
               <Route path="/profile">
                 <Profile />

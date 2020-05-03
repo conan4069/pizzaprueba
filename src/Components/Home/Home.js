@@ -74,18 +74,23 @@ export default function Home(props) {
     }
   }, [])
   useEffect(() => {
-    console.log('La currency ->', props.currency);
-    
+    // console.log('La currency ->', props.currency);
     axiosInstance.defaults.headers['currency'] = props.currency
-    console.log('La xxxxx ->', axiosInstance.defaults.headers);
+    // console.log('La xxxxx ->', axiosInstance.defaults.headers);
   }, [props.currency])
+  useEffect(() => { //Open cartDialog from Drawer
+    handleClickOpen()
+    // setOpenCar(props.openSC)
+  })
 
   const handleClickOpen = () => {
     setOpenCar(true);
+    setOpenCar(props.openSC)
   };
 
   const handleClose = () => {
     setOpenCar(false);
+    props.closeSC()
   };
 
   const upToPizza = () => {
@@ -117,7 +122,7 @@ export default function Home(props) {
   const ourMenu =
     <section className="ourMenu">
       <div className="itemsTitle">
-        <h3 style={{color:'#319a2f;'}} className="pacifico">Our Menu</h3>
+        <h3 style={{color:'#319a2f'}} className="pacifico">Our Menu</h3>
       </div>
       <div className="items">
         {pizzas.map((pizza, index) => (
@@ -163,118 +168,124 @@ export default function Home(props) {
       </div>
     </section>
 
-  const carDialog =
-      <div>
-        <Dialog
-          open={openCar}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle
-            id="alert-dialog-title"
-            variant="h4"
-            // noWrap
-            className={classes.header}
-          >
-            {"Your Order !"}
-          </DialogTitle>
-          <DialogContent>
-            <div>
-              <div className="headerArea">
-                <div className="qtyArea">Qty.</div>
-                <div className="infoArea">
-                  <div className="name">
-                    Pizza
+  const contentCarDialog =
+    <div>
+      <div className="headerArea">
+        <div className="qtyArea">Qty.</div>
+        <div className="infoArea">
+          <div className="name">
+            Pizza
                   </div>
-                  <div className="price">Price</div>
-                  <div className="price">Aprox.</div>
-                </div>
-                <div className="qtyArea">Opt.</div>
+          <div className="price">Price</div>
+          <div className="price">Aprox.</div>
+        </div>
+        <div className="qtyArea">Opt.</div>
 
+      </div>
+      <List>
+        {/* {pizzas.map((pizza, index) => ( */}
+        {Car === undefined ? '' : Car.map((pizza, index) => (
+          <ListItem
+            key={index}>
+            <div className="qtyArea">
+              <TextField
+                disabled id={index + '.' + pizza.name}
+                value={pizza.quantity}
+              // label="Quantity"
+              />
+            </div>
+            <div className="infoArea">
+              <div className="name">
+                <ListItemText
+                  primary={pizza.name}
+                />
               </div>
-              <List>
-                {/* {pizzas.map((pizza, index) => ( */}
-                {Car === undefined ? '' : Car.map((pizza, index) => (
-                  <ListItem
-                    key={index}>
-                    <div className="qtyArea">
-                      <TextField
-                        disabled id={index+'.'+pizza.name}
-                        value={pizza.quantity}
-                        // label="Quantity"
-                      />
-                    </div>
-                    <div className="infoArea">
-                      <div className="name">
-                        <ListItemText
-                          primary={pizza.name}
-                        />
-                      </div>
-                      <div className="price">
-                        <span>{pizza.price}</span>
-                      </div>
-                      <div className="price">
-                        <span>{pizza.price}</span>
-                      </div>
-                    </div>
-                    <removeiv className="btnArea">
-                      <IconButton 
-                        onClick={() => ddPizza()}
-                        size="small"
-                      >
-                        {<Icon style={{ color: 'red' }} className="fa fa-minus" />}
-                      </IconButton>
-                      <IconButton 
-                        onClick={() => upToPizza()}
-                        size="small"
-                      >
-                        {<Icon style={{ color: '#319a2f' }} className="fa fa-plus" />}
-                      </IconButton>
-                      {/* <IconButton onClick={() => removePizza()}>
-                        {<Icon style={{ color: '#319a2f' }} className="fa fa-plus" />}
-                      </IconButton> */}
-                    </removeiv>
-                  </ListItem>
-                ))}
-              </List>
-              <div className="headerArea">
-                <div className="qtyArea"></div>
-                <div className="infoArea">
-                  <div className="name">
-                    Sub Total
-                  </div>
-                  <div className="price"></div>
-                  <div className="price">{CarTotal === undefined ? '' : CarTotal.Subtotal}</div>
-                </div>
-                <div className="qtyArea"></div>
+              <div className="price">
+                <span>{pizza.price}</span>
               </div>
-              <div className="headerArea">
-                <div className="qtyArea"></div>
-                <div className="infoArea">
-                  <div className="name">
-                    TAX
-                  </div>
-                  <div className="price"></div>
-                  <div className="price">{CarTotal === undefined ? '' : CarTotal.Tax}</div>
-                </div>
-                <div className="qtyArea"></div>
-              </div>
-              <div className="headerArea">
-                <div className="qtyArea"></div>
-                <div className="infoArea">
-                  <div className="name">
-                    Total
-                  </div>
-                  <div className="price"></div>
-                  <div className="price">{CarTotal === undefined ? '' : CarTotal.Total}</div>
-                </div>
-                <div className="qtyArea"></div>
+              <div className="price">
+                <span>{pizza.price}</span>
               </div>
             </div>
-          </DialogContent>
-        </Dialog>
+            <div className="btnArea">
+              <IconButton
+                onClick={() => ddPizza()}
+                size="small"
+              >
+                {<Icon style={{ color: 'red' }} className="fa fa-minus" />}
+              </IconButton>
+              <IconButton
+                onClick={() => upToPizza()}
+                size="small"
+              >
+                {<Icon style={{ color: '#319a2f' }} className="fa fa-plus" />}
+              </IconButton>
+              {/* <IconButton onClick={() => removePizza()}>
+                        {<Icon style={{ color: '#319a2f' }} className="fa fa-plus" />}
+                      </IconButton> */}
+            </div>
+          </ListItem>
+        ))}
+      </List>
+      <div className="headerArea">
+        <div className="qtyArea"></div>
+        <div className="infoArea">
+          <div className="name">
+            Sub Total
+                  </div>
+          <div className="price"></div>
+          <div className="price">{CarTotal === undefined ? '' : CarTotal.Subtotal}</div>
+        </div>
+        <div className="qtyArea"></div>
       </div>
+      <div className="headerArea">
+        <div className="qtyArea"></div>
+        <div className="infoArea">
+          <div className="name">
+            TAX
+                  </div>
+          <div className="price"></div>
+          <div className="price">{CarTotal === undefined ? '' : CarTotal.Tax}</div>
+        </div>
+        <div className="qtyArea"></div>
+      </div>
+      <div className="headerArea">
+        <div className="qtyArea"></div>
+        <div className="infoArea">
+          <div className="name">
+            Total
+                  </div>
+          <div className="price"></div>
+          <div className="price">{CarTotal === undefined ? '' : CarTotal.Total}</div>
+        </div>
+        <div className="qtyArea"></div>
+      </div>
+    </div>
+
+  const anything = <div className='anything'>
+    <h3>You have not ordered anything yet ! =(</h3>
+  </div>
+ 
+  const carDialog = <div>
+    <Dialog
+      open={openCar}
+      onClose={handleClose}
+      // aria-labelledby="alert-dialog-title"
+      // aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle
+        // id="alert-dialog-title"
+        // variant="h4"
+        // noWrap
+        className={classes.header}
+      >
+        {"Your Order !"}
+      </DialogTitle>
+      <DialogContent>
+        {Car.length === 0 ? anything : contentCarDialog}
+      </DialogContent>
+    </Dialog>
+  </div>
 
   const footer =
     <section className="sectionFooter">
