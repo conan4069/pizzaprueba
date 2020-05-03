@@ -103,7 +103,7 @@ export default function PersistentDrawerRight() {
           <div>
             <Switch>
               <Route exact path="/">
-                <Home />
+                <Home key="home" haveToken={loginToken} />
               </Route>
               <Route path="/profile">
                 <Profile />
