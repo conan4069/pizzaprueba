@@ -218,6 +218,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div className="copyright">
+        &copy; {new Date().getFullYear()} Yummi Pizza.  All rights reserved.
+      </div>
     </section>
 
   return (
