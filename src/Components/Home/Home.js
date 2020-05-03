@@ -112,13 +112,15 @@ export default function Home(props) {
                   }></span> 
                   {props.currency === 'USD' ? pizza.price : pizza.eur_price}
                 </h5>
-                <button onClick={() => addPizza(pizza)}>Add to Car</button>
+                {/* <button onClick={() => addPizza(pizza)}>Add to Car</button> */}
                 {/* <button onClick={() => handleClickOpen()}>Add to Car</button> */}
+                {/*
                 <span className="quantity"> 
                   <input type="number"/>
                   <button>+</button>
                   <button>-</button>
                 </span>
+                */}
                 <button className="add" onClick={() => handleClickOpen()}>Add to Car</button>
               </div>
             </div>
@@ -234,6 +236,9 @@ export default function Home(props) {
             </div>
           </div>
         </div>
+      </div>
+      <div className="copyright">
+        &copy; {new Date().getFullYear()} Yummi Pizza.  All rights reserved.
       </div>
     </section>
 
