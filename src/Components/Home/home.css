@@ -298,7 +298,8 @@ main {
       .text 
         button.add 
           span[class*="-icons"]{
-            margin: auto 5px
+            margin: auto 5px;
+            width: auto
           }
 
 .home

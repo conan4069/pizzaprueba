@@ -18,6 +18,7 @@ import RegisterModal from '../Register/RegisterModal'
 import Home from '../Home/Home'
 import Login from '../Login/Login'
 import Dashboard from '../Dashboard/Dashboard'
+import Profile from '../Profile/Profile'
 
 import {
   BrowserRouter as Router,
@@ -193,14 +194,6 @@ export default function PersistentDrawerRight() {
         </Drawer>
       </div>
     </Router>
-  );
-}
-
-function Profile() {
-  return (
-    <div>
-      <h2>profile</h2>
-    </div>
   );
 }
 
