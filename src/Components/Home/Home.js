@@ -252,9 +252,7 @@ export default function Home() {
       </section>
       {carDialog}
       {ourMenu}
-      <section>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam libero excepturi, quidem perferendis doloribus repudiandae id sed rerum nostrum ut. Fugiat ratione velit, iusto nesciunt recusandae, corporis voluptas impedit beatae.
-      </section>
+      <section className="slider-pizzas"></section>
       {footer}
 
     </div>

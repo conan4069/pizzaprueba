@@ -352,6 +352,33 @@ main {
       text-align: center;
       text-justify: auto;
     }
+.home
+  .slider-pizzas {
+    background-image: url('../../assets/images/slider-pizza.jpg');
+    background-repeat: repeat-x;
+    animation: slideleft 20000s infinite linear;
+    -webkit-animation: slideleft 20000s infinite linear;
+    background-size: cover;
+    min-height: 300px;
+  }
+@keyframes slideleft {
+  from {
+      background-position: 0%;
+  }
+
+  to {
+      background-position: 90000%;
+  }
+}
+@-webkit-keyframes slideleft {
+  from {
+      background-position: 0%;
+  }
+
+  to {
+      background-position: 90000%;
+  }
+}
 
 /* Section Footer */
 .home
@@ -359,7 +386,7 @@ main {
       background: #549B30;
       padding: 1.5rem 0rem !important;
       display: block;
-      margin-bottom: 3rem;
+      /*margin-bottom: 3rem;*/
       color: white;
     }
 
