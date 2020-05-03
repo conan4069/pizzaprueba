@@ -93,13 +93,34 @@ export default function Home(props) {
     props.closeSC()
   };
 
-  const upToPizza = () => {
-
+  const upToPizza = (index) => {
+    axiosInstance.get('cart/increment/item/'+index)
+      .then((response) => {
+        console.log('response up to ->', response);
+        setValueCar(response.data[0].items)
+        setTotalCar(response.data[0].totals)
+        // props.donelog()
+        // setOpen(false)
+        // localStorage.setItem('token', response.data.token)
+      })
   }
 
-  const ddPizza = () => {}
+  const ddPizza = (index) => {
+    axiosInstance.get('cart/decrement/item/'+index)
+      .then((response) => {
+        setValueCar(response.data[0].items)
+        setTotalCar(response.data[0].totals)
+        console.log('response dd ->', response);
+      })
+  }
   
-  // const removePizza = () => { }
+  const removePizza = (index) => {
+    axiosInstance.get('cart/remove/item/'+index)
+    .then((response) => {
+      setValueCar(response.data[0].items)
+      setTotalCar(response.data[0].totals)
+      console.log('response rm ->', response);
+    })}
 
   function addPizza (object) {
     let id = object.id
@@ -117,6 +138,13 @@ export default function Home(props) {
         setValueCar(response.data[0].items)
         setTotalCar(response.data[0].totals)
       })
+  }
+
+  const calcAprox = (qty, price) => {
+    let result = props.currency === 'USD' ? qty * parseFloat(price.split('$')[1]) : 
+      qty * parseFloat(price.split('€')[1])
+    // console.log('aprox', result);
+    return result
   }
 
   const ourMenu =
@@ -155,8 +183,8 @@ export default function Home(props) {
                 <button 
                   className="add" 
                   onClick={() => {
+                    setOpenCar(true)
                     addPizza(pizza)
-                    handleClickOpen()
                   }}>
                   <Icon className="fas fa-shopping-cart" />
                   Add to Car
@@ -204,25 +232,28 @@ export default function Home(props) {
                 <span>{pizza.price}</span>
               </div>
               <div className="price">
-                <span>{pizza.price}</span>
+                <span>{props.currency === 'USD' ? '$' : '€'}{calcAprox(pizza.quantity, pizza.price)}</span>
               </div>
             </div>
             <div className="btnArea">
               <IconButton
-                onClick={() => ddPizza()}
+                onClick={() => ddPizza(index)}
                 size="small"
               >
-                {<Icon style={{ color: 'red' }} className="fa fa-minus" />}
+                {<Icon style={{ color: 'orange' }} className="fa fa-minus" />}
               </IconButton>
               <IconButton
-                onClick={() => upToPizza()}
+                onClick={() => upToPizza(index)}
                 size="small"
               >
                 {<Icon style={{ color: '#319a2f' }} className="fa fa-plus" />}
               </IconButton>
-              {/* <IconButton onClick={() => removePizza()}>
-                        {<Icon style={{ color: '#319a2f' }} className="fa fa-plus" />}
-                      </IconButton> */}
+              <IconButton 
+                onClick={() => removePizza(index)}
+                size="small"
+              >
+                {<Icon style={{ color: 'red' }} className="fa fa-times" />}
+              </IconButton>
             </div>
           </ListItem>
         ))}
