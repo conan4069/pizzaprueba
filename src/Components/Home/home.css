@@ -356,10 +356,12 @@ main {
   .slider-pizzas {
     background-image: url('../../assets/images/slider-pizza.jpg');
     background-repeat: repeat-x;
-    animation: slideleft 20000s infinite linear;
-    -webkit-animation: slideleft 20000s infinite linear;
+    animation: slideleft 20s infinite linear;
+    -webkit-animation: slideleft 20s infinite linear;
+    /*-webkit-animation: slideleft 20000s infinite linear;*/
     background-size: cover;
     min-height: 300px;
+    animation-direction: alternate;
   }
 @keyframes slideleft {
   from {
@@ -367,7 +369,7 @@ main {
   }
 
   to {
-      background-position: 90000%;
+      background-position: 100%;
   }
 }
 @-webkit-keyframes slideleft {
@@ -376,7 +378,8 @@ main {
   }
 
   to {
-      background-position: 90000%;
+      background-position: 100%;
+      /*background-position: 90000%;*/
   }
 }
 
