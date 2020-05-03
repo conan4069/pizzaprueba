@@ -415,9 +415,10 @@ main {
     .internalContainer 
       .row
         .textAddress{
-          flex: 0 0 50%;
-          max-width: 50%;
-          -webkit-box-flex: 0;
+          /*flex: 0 0 50%;*/
+          /*max-width: 50%;*/
+          /*-webkit-box-flex: 0;*/
+          flex-basis: 50%;
           position: relative;
           width: 100%;
           min-height: 1px;
@@ -539,6 +540,37 @@ main {
       padding: 5px
     }
 
+@media (max-width: 800px) {
+  .home
+    .sectionFooter
+      .internalContainer {
+          margin: auto !important;
+        }
+  .home
+    .sectionFooter
+      .internalContainer 
+        .row {
+          justify-content: space-around;
+        }
+  .home
+    .sectionFooter
+      .internalContainer 
+        .row
+          .textAddress{
+            flex-basis: 500px;
+            max-width: 500px;
+            padding: 0;
+          }
+  .home
+    .sectionFooter
+      .internalContainer 
+        .row 
+          .aboutUs {
+            flex-basis: 300px;
+            max-width: 400px;
+            padding: 0
+          }
+}
 /* Car List  */
 .headerArea{
   display: flex;
