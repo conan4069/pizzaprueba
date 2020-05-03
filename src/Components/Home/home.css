@@ -584,22 +584,29 @@ main {
           }
 }
 /* Car List  */
+
 .headerArea{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
-
-
 .qtyArea{
-  width: 10%;
+  width: 15%;
   margin-right: 1rem;
+}
+
+.btnArea{
+  width: 15%;
+  margin-right: 1rem;
+  display: flex;
 }
 
 .infoArea{
   display: flex;
-  width: 85%;
+  width: 70%;
   align-items: center;
 }
 
@@ -615,5 +622,5 @@ main {
     display: flex;
     width: 20%;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
   }

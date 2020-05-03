@@ -124,7 +124,7 @@ export default function PersistentDrawerRight() {
           <div>
             <Switch>
               <Route exact path="/">
-                <Home currency={currency} />
+                <Home key="home" haveToken={loginToken} currency={currency} />
               </Route>
               <Route path="/profile">
                 <Profile />

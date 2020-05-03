@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import logo from '../../logo.svg';
-// import imagen from '../../assets/images/pizza.png';
 import '../../App.css';
 import './home.css';
 import { axiosInstance } from '../../axiosInstance.js'
@@ -13,6 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -29,6 +28,15 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
+  header: {
+    flexGrow: 1,
+    fontFamily: 'Pacifico , cursive',
+    fontWeight: '700',
+    color: '#319a2f',
+    textAlign: 'center',
+    paddingBottom: 15,
+    fontSize: '35px'
+  },
   title:{
     fontFamily:'Pacifico , cursive',
     fontWeight:'700',
@@ -39,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight:'500',
     fontSize:'20px'
   }
-
 }));
 
 export default function Home(props) {
@@ -47,22 +54,32 @@ export default function Home(props) {
   // States
   const [pizzas, setPizzas] = useState([]);
   const [openCar, setOpenCar] = useState(false);
+  const [Car, setValueCar] = useState([]);
+  const [CarTotal, setTotalCar] = useState({});
   // Effects
-  useEffect(() => { 
+  useEffect(() => { // Get Pizzas
     axiosInstance.get('pizza')
       .then(response => {
-        let text = JSON.stringify(response.data.success.data)
         setPizzas(response.data.success.data)
       })
-
-    // axiosInstance.get('order')
-    //   .then(response => {
-    //     console.log('response ->', response);
-    //     // setPizzas(response.data.success.data)
-    //   })
-
   }, [])
-  
+  useEffect(()=> {
+    if (localStorage.getItem('token') != undefined || localStorage.getItem('token') != null) {
+      axiosInstance.get('cart')
+      .then(response => {
+        setValueCar(response.data[0].items)
+        setTotalCar(response.data[0].totals)
+        console.log('Esto es el carrito ', response);
+      })
+    }
+  }, [])
+  useEffect(() => {
+    console.log('La currency ->', props.currency);
+    
+    axiosInstance.defaults.headers['currency'] = props.currency
+    console.log('La xxxxx ->', axiosInstance.defaults.headers);
+  }, [props.currency])
+
   const handleClickOpen = () => {
     setOpenCar(true);
   };
@@ -70,6 +87,14 @@ export default function Home(props) {
   const handleClose = () => {
     setOpenCar(false);
   };
+
+  const upToPizza = () => {
+
+  }
+
+  const ddPizza = () => {}
+  
+  const removePizza = () => { }
 
   function addPizza (object) {
     let id = object.id
@@ -79,14 +104,15 @@ export default function Home(props) {
           var tokenUser = response.data[0].token
           localStorage.setItem('token', tokenUser)
           axiosInstance.defaults.headers['Authorization'] = `Bearer ${tokenUser}`
-          console.log('Hello', response);
-          console.log('El Token es', tokenUser);
+          // console.log('El Token es', tokenUser);
+          props.haveToken()
         }
-        console.log('klasdkasd', localStorage.getItem('token'));
-        
+        // console.log('Hello', response);
+        // console.log('klasdkasd', localStorage.getItem('token'));
+        setValueCar(response.data[0].items)
+        setTotalCar(response.data[0].totals)
       })
-    
-  } 
+  }
 
   const ourMenu =
     <section className="ourMenu">
@@ -121,8 +147,13 @@ export default function Home(props) {
                   <button>-</button>
                 </span>
                 */}
-                <button className="add" onClick={() => handleClickOpen()}>
-                  <Icon className="fas fa-cart-plus" />
+                <button 
+                  className="add" 
+                  onClick={() => {
+                    addPizza(pizza)
+                    handleClickOpen()
+                  }}>
+                  <Icon className="fas fa-shopping-cart" />
                   Add to Car
                 </button>
               </div>
@@ -131,8 +162,8 @@ export default function Home(props) {
         ))}
       </div>
     </section>
-  
-  const carDialog = 
+
+  const carDialog =
       <div>
         <Dialog
           open={openCar}
@@ -140,8 +171,11 @@ export default function Home(props) {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle 
+          <DialogTitle
             id="alert-dialog-title"
+            variant="h4"
+            // noWrap
+            className={classes.header}
           >
             {"Your Order !"}
           </DialogTitle>
@@ -153,40 +187,96 @@ export default function Home(props) {
                   <div className="name">
                     Pizza
                   </div>
-                  <div className="price">Total</div>
+                  <div className="price">Price</div>
+                  <div className="price">Aprox.</div>
                 </div>
+                <div className="qtyArea">Opt.</div>
+
               </div>
               <List>
                 {/* {pizzas.map((pizza, index) => ( */}
-                {pizzas.map((pizza, index) => (
-                  <ListItem 
+                {Car.map((pizza, index) => (
+                  <ListItem
                     key={index}>
                     <div className="qtyArea">
-                      <TextField 
-                        disabled id={index+'.'+pizza.name} 
-                        defaultValue="0" 
-                        // label="Quantity" 
+                      <TextField
+                        disabled id={index+'.'+pizza.name}
+                        value={pizza.quantity}
+                        // label="Quantity"
                       />
                     </div>
                     <div className="infoArea">
                       <div className="name">
-                        <ListItemText 
-                          primary={pizza.name} 
+                        <ListItemText
+                          primary={pizza.name}
                         />
                       </div>
                       <div className="price">
                         <span>{pizza.price}</span>
                       </div>
+                      <div className="price">
+                        <span>{pizza.price}</span>
+                      </div>
                     </div>
+                    <removeiv className="btnArea">
+                      <IconButton 
+                        onClick={() => ddPizza()}
+                        size="small"
+                      >
+                        {<Icon style={{ color: 'red' }} className="fa fa-minus" />}
+                      </IconButton>
+                      <IconButton 
+                        onClick={() => upToPizza()}
+                        size="small"
+                      >
+                        {<Icon style={{ color: '#319a2f' }} className="fa fa-plus" />}
+                      </IconButton>
+                      {/* <IconButton onClick={() => removePizza()}>
+                        {<Icon style={{ color: '#319a2f' }} className="fa fa-plus" />}
+                      </IconButton> */}
+                    </removeiv>
                   </ListItem>
                 ))}
               </List>
+              <div className="headerArea">
+                <div className="qtyArea"></div>
+                <div className="infoArea">
+                  <div className="name">
+                    Sub Total
+                  </div>
+                  <div className="price"></div>
+                  <div className="price">{CarTotal.Subtotal}</div>
+                </div>
+                <div className="qtyArea"></div>
+              </div>
+              <div className="headerArea">
+                <div className="qtyArea"></div>
+                <div className="infoArea">
+                  <div className="name">
+                    TAX
+                  </div>
+                  <div className="price"></div>
+                  <div className="price">{CarTotal.Tax}</div>
+                </div>
+                <div className="qtyArea"></div>
+              </div>
+              <div className="headerArea">
+                <div className="qtyArea"></div>
+                <div className="infoArea">
+                  <div className="name">
+                    Total
+                  </div>
+                  <div className="price"></div>
+                  <div className="price">{CarTotal.Total}</div>
+                </div>
+                <div className="qtyArea"></div>
+              </div>
             </div>
           </DialogContent>
         </Dialog>
       </div>
 
-  const footer = 
+  const footer =
     <section className="sectionFooter">
       <div className="internalContainer">
         <div className="row">
