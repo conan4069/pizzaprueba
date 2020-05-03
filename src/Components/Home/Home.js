@@ -3,11 +3,8 @@ import '../../App.css';
 import './home.css';
 import { axiosInstance } from '../../axiosInstance.js'
 
-// import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-// import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Icon from '@material-ui/core/Icon';
@@ -16,9 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-// import Divider from '@material-ui/core/Divider';
 
 import TextField from '@material-ui/core/TextField';
 
@@ -64,12 +59,17 @@ export default function Home(props) {
       })
   }, [])
   useEffect(()=> {
-    if (localStorage.getItem('token') != undefined || localStorage.getItem('token') != null) {
+    if (localStorage.getItem('token') !== undefined || localStorage.getItem('token') !== null) {
       axiosInstance.get('cart')
       .then(response => {
         setValueCar(response.data[0].items)
         setTotalCar(response.data[0].totals)
         console.log('Esto es el carrito ', response);
+      })
+      .catch(error => {
+        console.log('entro en el catch');
+        setValueCar([])
+        setTotalCar({})
       })
     }
   }, [])
@@ -94,7 +94,7 @@ export default function Home(props) {
 
   const ddPizza = () => {}
   
-  const removePizza = () => { }
+  // const removePizza = () => { }
 
   function addPizza (object) {
     let id = object.id
@@ -132,7 +132,7 @@ export default function Home(props) {
                 <h2>{pizza.name}</h2>
                 <h5>{pizza.ingredients}</h5>
                 <h5>
-                  <span className={`${props.currency == 'USD'?
+                  <span className={`${props.currency === 'USD'?
                       'fa fa-dollar-sign':
                       'fa fa-euro-sign'}`
                   }></span> 
@@ -195,7 +195,7 @@ export default function Home(props) {
               </div>
               <List>
                 {/* {pizzas.map((pizza, index) => ( */}
-                {Car.map((pizza, index) => (
+                {Car === undefined ? '' : Car.map((pizza, index) => (
                   <ListItem
                     key={index}>
                     <div className="qtyArea">
@@ -245,7 +245,7 @@ export default function Home(props) {
                     Sub Total
                   </div>
                   <div className="price"></div>
-                  <div className="price">{CarTotal.Subtotal}</div>
+                  <div className="price">{CarTotal === undefined ? '' : CarTotal.Subtotal}</div>
                 </div>
                 <div className="qtyArea"></div>
               </div>
@@ -256,7 +256,7 @@ export default function Home(props) {
                     TAX
                   </div>
                   <div className="price"></div>
-                  <div className="price">{CarTotal.Tax}</div>
+                  <div className="price">{CarTotal === undefined ? '' : CarTotal.Tax}</div>
                 </div>
                 <div className="qtyArea"></div>
               </div>
@@ -267,7 +267,7 @@ export default function Home(props) {
                     Total
                   </div>
                   <div className="price"></div>
-                  <div className="price">{CarTotal.Total}</div>
+                  <div className="price">{CarTotal === undefined ? '' : CarTotal.Total}</div>
                 </div>
                 <div className="qtyArea"></div>
               </div>
