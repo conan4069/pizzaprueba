@@ -26,17 +26,21 @@ import {
   Link
 } from "react-router-dom";
 
-const menuItemsLateral = [
-  { name: 'Home', route: '/', icon: 'fa fa-home' },
-  { name: 'Dashboard', route: '/dashboard', icon: 'fa fa-columns' },
-  { name: 'Profile', route: '/profile', icon: 'fa fa-user-alt' }
-]
-
 export default function PersistentDrawerRight() {
   const classes = useStyles();
   const getToken = localStorage.getItem('token')
+  const initialMenu = [
+    { name: 'Home', route: '/', icon: 'fa fa-home' },
+  ]
+  const fullMenu = initialMenu.concat([
+    // { name: 'Dashboard', route: '/dashboard', icon: 'fa fa-columns' },
+  { name: 'Profile', route: '/profile', icon: 'fa fa-user-alt' }])
+  const cur = localStorage.getItem('currency')
+
   const [open, setOpen] = React.useState(false);
   const [token, setToken] = React.useState(getToken !== null ? true : false);
+  const [menuItemsLateral,setMenu] = React.useState(getToken !== null ? fullMenu : initialMenu);
+  const [currency,setCurrency] = React.useState(cur !== null ? cur : 'USD')
 
   // onClick={handleModalOpen}
   const logout = <IconButton
@@ -44,12 +48,27 @@ export default function PersistentDrawerRight() {
       onClick={() => {
         localStorage.removeItem('token')
         setToken(false)
+        setMenu(initialMenu)
       }}
       aria-label="open drawer"
     >
-      <Icon style={{fontWeight:700}}>reply</Icon>
+      <Icon style={{fontWeight:700}} className="fa fa-sign-out-alt"></Icon>
     </IconButton>
 
+  const currencyBtn = <IconButton
+        color="inherit"
+        onClick={() => {
+          let newCurrency = currency === 'USD' ? 'EUR' : 'USD'
+          localStorage.setItem('currency',newCurrency)
+          setCurrency(newCurrency)
+        }}
+        aria-label="open drawer"
+      >
+        <Icon style={{fontWeight:700}} className={`${currency == 'USD'?
+            'fa fa-dollar-sign':
+            'fa fa-euro-sign'}`
+        }></Icon>
+      </IconButton>
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -60,7 +79,8 @@ export default function PersistentDrawerRight() {
   };
 
   const loginToken = () => {
-    setToken(true)    
+    setToken(true)   
+    setMenu(fullMenu) 
   }
 
   return (
@@ -86,6 +106,7 @@ export default function PersistentDrawerRight() {
             <Typography variant="h6" noWrap className={classes.title}>
               Yummy Pizza
             </Typography>
+            {currencyBtn}
             {
               token ? logout : [
                 <RegisterModal key="register"></RegisterModal>,
@@ -103,7 +124,7 @@ export default function PersistentDrawerRight() {
           <div>
             <Switch>
               <Route exact path="/">
-                <Home key="home" haveToken={loginToken} />
+                <Home key="home" haveToken={loginToken} currency={currency} />
               </Route>
               <Route path="/profile">
                 <Profile />

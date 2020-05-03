@@ -352,6 +352,36 @@ main {
       text-align: center;
       text-justify: auto;
     }
+.home
+  .slider-pizzas {
+    background-image: url('../../assets/images/slider-pizza.jpg');
+    background-repeat: repeat-x;
+    animation: slideleft 20s infinite linear;
+    -webkit-animation: slideleft 20s infinite linear;
+    /*-webkit-animation: slideleft 20000s infinite linear;*/
+    background-size: cover;
+    min-height: 300px;
+    animation-direction: alternate;
+  }
+@keyframes slideleft {
+  from {
+      background-position: 0%;
+  }
+
+  to {
+      background-position: 100%;
+  }
+}
+@-webkit-keyframes slideleft {
+  from {
+      background-position: 0%;
+  }
+
+  to {
+      background-position: 100%;
+      /*background-position: 90000%;*/
+  }
+}
 
 /* Section Footer */
 .home
@@ -359,14 +389,16 @@ main {
       background: #549B30;
       padding: 1.5rem 0rem !important;
       display: block;
-      margin-bottom: 3rem;
+      /*margin-bottom: 3rem;*/
       color: white;
+      position: relative;
     }
 
 .home
     .sectionFooter
       .internalContainer {
         padding-top: 3rem!important;
+        padding-bottom: 4rem;
         margin: 0rem 3rem 0rem 3rem !important;
       }
 
@@ -383,9 +415,10 @@ main {
     .internalContainer 
       .row
         .textAddress{
-          flex: 0 0 50%;
-          max-width: 50%;
-          -webkit-box-flex: 0;
+          /*flex: 0 0 50%;*/
+          /*max-width: 50%;*/
+          /*-webkit-box-flex: 0;*/
+          flex-basis: 50%;
           position: relative;
           width: 100%;
           min-height: 1px;
@@ -482,9 +515,62 @@ main {
           .icons
             ul > li
               {
-                display: inline-block;    
+                display: inline-block;
+                color: white;
               }
+.home
+  .sectionFooter
+    .internalContainer 
+      .row
+        .aboutUs
+          .icons
+            ul > li
+              a
+              {
+                color: inherit;
+              }
+.home
+  .sectionFooter
+    .copyright {
+      background-color: grey;
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      padding: 5px
+    }
 
+@media (max-width: 800px) {
+  .home
+    .sectionFooter
+      .internalContainer {
+          margin: auto !important;
+        }
+  .home
+    .sectionFooter
+      .internalContainer 
+        .row {
+          justify-content: space-around;
+        }
+  .home
+    .sectionFooter
+      .internalContainer 
+        .row
+          .textAddress{
+            flex-basis: 500px;
+            max-width: 500px;
+            padding: 0;
+          }
+  .home
+    .sectionFooter
+      .internalContainer 
+        .row 
+          .aboutUs {
+            flex-basis: 300px;
+            max-width: 400px;
+            padding: 0
+          }
+}
 /* Car List  */
 
 .headerArea{

@@ -37,6 +37,16 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 15,
     fontSize: '35px'
   },
+  title:{
+    fontFamily:'Pacifico , cursive',
+    fontWeight:'700',
+    fontSize:'30px'
+  },
+  subtitle:{
+    fontFamily:'Pacifico , cursive',
+    fontWeight:'500',
+    fontSize:'20px'
+  }
 }));
 
 export default function Home(props) {
@@ -53,7 +63,6 @@ export default function Home(props) {
         setPizzas(response.data.success.data)
       })
   }, [])
-
   useEffect(()=> {
     if (localStorage.getItem('token') != undefined || localStorage.getItem('token') != null) {
       axiosInstance.get('cart')
@@ -64,6 +73,12 @@ export default function Home(props) {
       })
     }
   }, [])
+  useEffect(() => {
+    console.log('La currency ->', props.currency);
+    
+    axiosInstance.defaults.headers['currency'] = props.currency
+    console.log('La xxxxx ->', axiosInstance.defaults.headers);
+  }, [props.currency])
 
   const handleClickOpen = () => {
     setOpenCar(true);
@@ -102,7 +117,7 @@ export default function Home(props) {
   const ourMenu =
     <section className="ourMenu">
       <div className="itemsTitle">
-        <h3>Our Menu</h3>
+        <h3 style={{color:'#319a2f;'}} className="pacifico">Our Menu</h3>
       </div>
       <div className="items">
         {pizzas.map((pizza, index) => (
@@ -116,15 +131,28 @@ export default function Home(props) {
               <div className="text">
                 <h2>{pizza.name}</h2>
                 <h5>{pizza.ingredients}</h5>
-                <h5>{pizza.price} $</h5>
-                <button onClick={() => addPizza(pizza)}>Add to Car</button>
+                <h5>
+                  <span className={`${props.currency == 'USD'?
+                      'fa fa-dollar-sign':
+                      'fa fa-euro-sign'}`
+                  }></span> 
+                  {props.currency === 'USD' ? pizza.price : pizza.eur_price}
+                </h5>
+                {/* <button onClick={() => addPizza(pizza)}>Add to Car</button> */}
                 {/* <button onClick={() => handleClickOpen()}>Add to Car</button> */}
-                <span className="quantity">
+                {/*
+                <span className="quantity"> 
                   <input type="number"/>
                   <button>+</button>
                   <button>-</button>
                 </span>
-                <button className="add" onClick={() => handleClickOpen()}>Add to Car</button>
+                */}
+                <button className="add" onClick={() => {
+                  addPizza(pizza)
+                  handleClickOpen()
+                }}>
+                  Add to Car
+                </button>
               </div>
             </div>
           </div>
@@ -143,7 +171,7 @@ export default function Home(props) {
           <DialogTitle
             id="alert-dialog-title"
             variant="h4"
-            noWrap
+            // noWrap
             className={classes.header}
           >
             {"Your Order !"}
@@ -157,14 +185,14 @@ export default function Home(props) {
                     Pizza
                   </div>
                   <div className="price">Price</div>
+                  <div className="price">Aprox.</div>
                 </div>
                 <div className="qtyArea">Opt.</div>
 
               </div>
               <List>
                 {/* {pizzas.map((pizza, index) => ( */}
-                {console.log('Este es el cartotal', CarTotal)
-                ,Car.map((pizza, index) => (
+                {Car.map((pizza, index) => (
                   <ListItem
                     key={index}>
                     <div className="qtyArea">
@@ -179,6 +207,9 @@ export default function Home(props) {
                         <ListItemText
                           primary={pizza.name}
                         />
+                      </div>
+                      <div className="price">
+                        <span>{pizza.price}</span>
                       </div>
                       <div className="price">
                         <span>{pizza.price}</span>
@@ -210,6 +241,7 @@ export default function Home(props) {
                   <div className="name">
                     Sub Total
                   </div>
+                  <div className="price"></div>
                   <div className="price">{CarTotal.Subtotal}</div>
                 </div>
                 <div className="qtyArea"></div>
@@ -220,6 +252,7 @@ export default function Home(props) {
                   <div className="name">
                     TAX
                   </div>
+                  <div className="price"></div>
                   <div className="price">{CarTotal.Tax}</div>
                 </div>
                 <div className="qtyArea"></div>
@@ -230,6 +263,7 @@ export default function Home(props) {
                   <div className="name">
                     Total
                   </div>
+                  <div className="price"></div>
                   <div className="price">{CarTotal.Total}</div>
                 </div>
                 <div className="qtyArea"></div>
@@ -246,50 +280,55 @@ export default function Home(props) {
           <div className="textAddress">
             <div className="row">
               <div className="footerTitle">
-                <h1>Yummi Pizza</h1>
-                <p>The best ever</p>
+                <h1 className={classes.title}>Yummi Pizza</h1>
+                <p className={classes.subtitle}>The best ever</p>
               </div>
               <div className="footerP">
-                <h5>Melbourne,south Brisbane, <br/>
-                QLD 4101,Aurstralia. <br />
+                <h1 className={classes.title}>Address</h1>
+                <h5>Calle 20 entre av 5 y 6 Centro empresarial San Gabriel, <br/>
+                Mérida,Venezuela. <br />
                 +(000) 123 4565 32 <br />
-                mail@example.com</h5>
+                nikeven@gmail.com</h5>
               </div>
             </div>
           </div>
           <div className="aboutUs">
-            <h1> About Us</h1>
-            <p>Lorem ipsum dolor sit amet, <br/>
-            consectetur adipiscing elit</p>
+            <h1 className={classes.title}> About Us</h1>
+            <p>We love to prepare the best pizzas you will ever eat,
+             you won't be able to avoid saying Yummy with us 
+            </p>
           </div>
           <div className="aboutUs">
-            <h1> Fallow Us</h1>
+            <h1 className={classes.title}> Follow Us</h1>
             <div className="icons">
               <ul>
                 <li>
                   <a href="#">
-                    <Icon className="fa fa-facebook-square" />
+                    <Icon className="fab fa-facebook" />
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <Icon className="fa fa-twitter-square" />
+                    <Icon className="fab fa-twitter-square" />
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <Icon className="fa fa-twitter-square" />
+                    <Icon className="fab fa-instagram-square" />
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <Icon className="fa fa-snapchat-square" />
+                    <Icon className="fab fa-linkedin" />
                   </a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
+      </div>
+      <div className="copyright">
+        &copy; {new Date().getFullYear()} Yummi Pizza.  All rights reserved.
       </div>
     </section>
 
@@ -327,11 +366,8 @@ export default function Home(props) {
       </section>
       {carDialog}
       {ourMenu}
-      <section>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam libero excepturi, quidem perferendis doloribus repudiandae id sed rerum nostrum ut. Fugiat ratione velit, iusto nesciunt recusandae, corporis voluptas impedit beatae.
-      </section>
+      <section className="slider-pizzas"></section>
       {footer}
-
     </div>
   );
 };

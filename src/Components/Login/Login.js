@@ -42,7 +42,7 @@ export default (props) => {
         aria-label="open drawer"
         onClick={handleModalOpen}
       >
-        <Icon style={{fontWeight:700}}>input</Icon>
+        <Icon style={{fontWeight:700}} className="fa fa-sign-in-alt"></Icon>
       </IconButton>
       <Modal
         open={open}
